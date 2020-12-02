@@ -1,0 +1,42 @@
+{% extends "master.html" %}
+
+{% block prediction %}
+    <hr />
+    <h4 class="text-center"> PREDICTION </h4>
+    <?php
+        $colour = 'blue'
+        if(${{ risk }}=='dropping off') {
+            $ colour = 'red';
+        }
+    ?>
+    <p class="text-center"><i>Model predicts 
+        
+        {% if(risk=='dropping off') %}
+            <span style="color:#FF0D57;">{{ pred }}</span>
+        {% else %}
+            <span style="color:#1E88E5;">{{ pred }}</span>
+        {% endif %}
+        
+        of having response rate higher than 30%. 
+        
+        {% if(risk=='dropping off') %}
+            <span style="color:#FF0D57;">[{{ risk }}]</span>
+        {% else %}
+            <span style="color:#1E88E5;">[{{ risk }}]</span>
+        {% endif %}
+        
+        </i></p>
+{% endblock %}
+
+{% block shap %}
+    <hr />
+    <h4 class="text-center"> ANALYTICS </h4>
+    <div class="shap_force_plot">{% include 'shap.html' %}</div>
+{% endblock %}
+
+{% block content %}
+    <hr />
+    <h4 class="text-center"> PATIENT INFO</h4>
+    <!-- use the variable name in run.py, i.e., results -->
+    <p class="text-center"><i>{{ results }}</i></p>
+{% endblock %}
